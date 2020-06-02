@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FrogJumpModelStoreContainer" CdmEntityContainer="FrogJumpEntities">
+    <EntitySetMapping Name="Account">
+      <EntityTypeMapping TypeName="FrogJumpModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+          <ScalarProperty Name="AccountUser" ColumnName="AccountUser" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="IdentityCode" ColumnName="IdentityCode" />
+          <ScalarProperty Name="Crt_User" ColumnName="Crt_User" />
+          <ScalarProperty Name="Crt_Date" ColumnName="Crt_Date" />
+          <ScalarProperty Name="Mdf_User" ColumnName="Mdf_User" />
+          <ScalarProperty Name="Mdf_Date" ColumnName="Mdf_Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Category">
+      <EntityTypeMapping TypeName="FrogJumpModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order">
+      <EntityTypeMapping TypeName="FrogJumpModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="WineryId" ColumnName="WineryId" />
+          <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+          <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="RequiredDate" ColumnName="RequiredDate" />
+          <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order_Detail">
+      <EntityTypeMapping TypeName="FrogJumpModel.Order_Detail">
+        <MappingFragment StoreEntitySet="Order_Detail">
+          <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Parameter">
+      <EntityTypeMapping TypeName="FrogJumpModel.Parameter">
+        <MappingFragment StoreEntitySet="Parameter">
+          <ScalarProperty Name="ParameterId" ColumnName="ParameterId" />
+          <ScalarProperty Name="ParmCode" ColumnName="ParmCode" />
+          <ScalarProperty Name="ParameterName" ColumnName="ParameterName" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product">
+      <EntityTypeMapping TypeName="FrogJumpModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="WineryId" ColumnName="WineryId" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ShelfId" ColumnName="ShelfId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Shelf">
+      <EntityTypeMapping TypeName="FrogJumpModel.Shelf">
+        <MappingFragment StoreEntitySet="Shelf">
+          <ScalarProperty Name="ShelfId" ColumnName="ShelfId" />
+          <ScalarProperty Name="ShelfName" ColumnName="ShelfName" />
+          <ScalarProperty Name="ShelfAddress" ColumnName="ShelfAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Winery">
+      <EntityTypeMapping TypeName="FrogJumpModel.Winery">
+        <MappingFragment StoreEntitySet="Winery">
+          <ScalarProperty Name="WineryId" ColumnName="WineryId" />
+          <ScalarProperty Name="WineryName" ColumnName="WineryName" />
+          <ScalarProperty Name="WineryPhone" ColumnName="WineryPhone" />
+          <ScalarProperty Name="WineryAddress" ColumnName="WineryAddress" />
+          <ScalarProperty Name="WineryEmail" ColumnName="WineryEmail" />
+          <ScalarProperty Name="Crt_User" ColumnName="Crt_User" />
+          <ScalarProperty Name="Crt_Date" ColumnName="Crt_Date" />
+          <ScalarProperty Name="Mdf_User" ColumnName="Mdf_User" />
+          <ScalarProperty Name="Mdf_Date" ColumnName="Mdf_Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inentory">
+      <EntityTypeMapping TypeName="FrogJumpModel.Inentory">
+        <MappingFragment StoreEntitySet="Inentory">
+          <ScalarProperty Name="ShelfId" ColumnName="ShelfId" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="InventoryId" ColumnName="InventoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

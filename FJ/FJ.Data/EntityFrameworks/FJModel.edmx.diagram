@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f14248d82cb94cd997801165f962c6ab" Name="Diagram1">
+        <EntityTypeShape EntityType="FrogJumpModel.Account" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrogJumpModel.Category" Width="1.5" PointX="3.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrogJumpModel.Order" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrogJumpModel.Order_Detail" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrogJumpModel.Parameter" Width="1.5" PointX="5.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrogJumpModel.Product" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrogJumpModel.Shelf" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FrogJumpModel.Winery" Width="1.5" PointX="3.75" PointY="9" IsExpanded="true" />
+        <AssociationConnector Association="FrogJumpModel.FK_Product_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="FrogJumpModel.FK_Order_Detail_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="FrogJumpModel.FK_Order_Winery" ManuallyRouted="false" />
+        <AssociationConnector Association="FrogJumpModel.FK_Order_Detail_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="FrogJumpModel.FK_Product_Shelf" ManuallyRouted="false" />
+        <AssociationConnector Association="FrogJumpModel.FK_Product_Winery" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FrogJumpModel.Inentory" Width="1.5" PointX="2.625" PointY="4.875" />
+        <AssociationConnector Association="FrogJumpModel.FK_InentoryId_Product1" />
+        <AssociationConnector Association="FrogJumpModel.FK_InentoryId_Shelf1" />
+        <AssociationConnector Association="FrogJumpModel.FK_Account_Winery" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

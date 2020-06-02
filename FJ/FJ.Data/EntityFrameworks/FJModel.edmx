@@ -1,0 +1,669 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FrogJumpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountUser" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdentityCode" Type="int" Nullable="false" />
+          <Property Name="WineryId" Type="int" />
+          <Property Name="Crt_User" Type="nvarchar" MaxLength="50" />
+          <Property Name="Crt_Date" Type="datetime" />
+          <Property Name="Mdf_User" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mdf_Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Inentory">
+          <Key>
+            <PropertyRef Name="InventoryId" />
+          </Key>
+          <Property Name="InventoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="ShelfId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="WineryId" Type="int" Nullable="false" />
+          <Property Name="CustomerPhone" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="CustomerAddress" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="100" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="RequiredDate" Type="datetime" />
+          <Property Name="ShippedDate" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order_Detail">
+          <Key>
+            <PropertyRef Name="OrderDetailId" />
+          </Key>
+          <Property Name="OrderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parameter">
+          <Key>
+            <PropertyRef Name="ParameterId" />
+          </Key>
+          <Property Name="ParameterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParmCode" Type="int" Nullable="false" />
+          <Property Name="ParameterName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="WineryId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="ShelfId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shelf">
+          <Key>
+            <PropertyRef Name="ShelfId" />
+          </Key>
+          <Property Name="ShelfId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShelfName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShelfAddress" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Winery">
+          <Key>
+            <PropertyRef Name="WineryId" />
+          </Key>
+          <Property Name="WineryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WineryName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="WineryPhone" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="WineryAddress" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WineryEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Crt_User" Type="nvarchar" MaxLength="20" />
+          <Property Name="Crt_Date" Type="datetime" />
+          <Property Name="Mdf_User" Type="nvarchar" MaxLength="20" />
+          <Property Name="Mdf_Date" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Account_Winery">
+          <End Role="Winery" Type="Self.Winery" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Winery">
+              <PropertyRef Name="WineryId" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="WineryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InentoryId_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Inentory" Type="Self.Inentory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Inentory">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InentoryId_Shelf">
+          <End Role="Shelf" Type="Self.Shelf" Multiplicity="1" />
+          <End Role="Inentory" Type="Self.Inentory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shelf">
+              <PropertyRef Name="ShelfId" />
+            </Principal>
+            <Dependent Role="Inentory">
+              <PropertyRef Name="ShelfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Detail_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Order_Detail" Type="Self.Order_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Order_Detail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Detail_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Order_Detail" Type="Self.Order_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Order_Detail">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Winery">
+          <End Role="Winery" Type="Self.Winery" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Winery">
+              <PropertyRef Name="WineryId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="WineryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Shelf">
+          <End Role="Shelf" Type="Self.Shelf" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shelf">
+              <PropertyRef Name="ShelfId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ShelfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Winery">
+          <End Role="Winery" Type="Self.Winery" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Winery">
+              <PropertyRef Name="WineryId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="WineryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FrogJumpModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inentory" EntityType="Self.Inentory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_Detail" EntityType="Self.Order_Detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parameter" EntityType="Self.Parameter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shelf" EntityType="Self.Shelf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Winery" EntityType="Self.Winery" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Account_Winery" Association="Self.FK_Account_Winery">
+            <End Role="Winery" EntitySet="Winery" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InentoryId_Product" Association="Self.FK_InentoryId_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Inentory" EntitySet="Inentory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InentoryId_Shelf" Association="Self.FK_InentoryId_Shelf">
+            <End Role="Shelf" EntitySet="Shelf" />
+            <End Role="Inentory" EntitySet="Inentory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Detail_Order" Association="Self.FK_Order_Detail_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Order_Detail" EntitySet="Order_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Detail_Product" Association="Self.FK_Order_Detail_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Order_Detail" EntitySet="Order_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Winery" Association="Self.FK_Order_Winery">
+            <End Role="Winery" EntitySet="Winery" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Shelf" Association="Self.FK_Product_Shelf">
+            <End Role="Shelf" EntitySet="Shelf" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Winery" Association="Self.FK_Product_Winery">
+            <End Role="Winery" EntitySet="Winery" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FrogJumpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountUser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdentityCode" Type="Int32" Nullable="false" />
+          <Property Name="Crt_User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Crt_Date" Type="DateTime" Precision="3" />
+          <Property Name="Mdf_User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mdf_Date" Type="DateTime" Precision="3" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WineryId" Type="Int32" />
+          <NavigationProperty Name="Winery" Relationship="FrogJumpModel.FK_Account_Winery" FromRole="Account" ToRole="Winery" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WineryId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerPhone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RequiredDate" Type="DateTime" Precision="3" />
+          <Property Name="ShippedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Order_Detail" Relationship="Self.FK_Order_Detail_Order" FromRole="Order" ToRole="Order_Detail" />
+          <NavigationProperty Name="Winery" Relationship="Self.FK_Order_Winery" FromRole="Order" ToRole="Winery" />
+        </EntityType>
+        <EntityType Name="Order_Detail">
+          <Key>
+            <PropertyRef Name="OrderDetailId" />
+          </Key>
+          <Property Name="OrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Detail_Order" FromRole="Order_Detail" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Order_Detail_Product" FromRole="Order_Detail" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Parameter">
+          <Key>
+            <PropertyRef Name="ParameterId" />
+          </Key>
+          <Property Name="ParameterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParmCode" Type="Int32" Nullable="false" />
+          <Property Name="ParameterName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="WineryId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="ShelfId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Order_Detail" Relationship="Self.FK_Order_Detail_Product" FromRole="Product" ToRole="Order_Detail" />
+          <NavigationProperty Name="Shelf" Relationship="Self.FK_Product_Shelf" FromRole="Product" ToRole="Shelf" />
+          <NavigationProperty Name="Winery" Relationship="Self.FK_Product_Winery" FromRole="Product" ToRole="Winery" />
+          <NavigationProperty Name="Inentory" Relationship="FrogJumpModel.FK_InentoryId_Product1" FromRole="Product" ToRole="Inentory" />
+        </EntityType>
+        <EntityType Name="Shelf">
+          <Key>
+            <PropertyRef Name="ShelfId" />
+          </Key>
+          <Property Name="ShelfId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShelfName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShelfAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Shelf" FromRole="Shelf" ToRole="Product" />
+          <NavigationProperty Name="Inentory" Relationship="FrogJumpModel.FK_InentoryId_Shelf1" FromRole="Shelf" ToRole="Inentory" />
+        </EntityType>
+        <EntityType Name="Winery">
+          <Key>
+            <PropertyRef Name="WineryId" />
+          </Key>
+          <Property Name="WineryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WineryName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WineryPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WineryAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WineryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Crt_User" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Crt_Date" Type="DateTime" Precision="3" />
+          <Property Name="Mdf_User" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Mdf_Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Winery" FromRole="Winery" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Winery" FromRole="Winery" ToRole="Product" />
+          <NavigationProperty Name="Account" Relationship="FrogJumpModel.FK_Account_Winery" FromRole="Winery" ToRole="Account" />
+        </EntityType>
+        <Association Name="FK_Product_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Detail_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Order_Detail" Type="Self.Order_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Order_Detail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Winery">
+          <End Role="Winery" Type="Self.Winery" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Winery">
+              <PropertyRef Name="WineryId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="WineryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Detail_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Order_Detail" Type="Self.Order_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Order_Detail">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Shelf">
+          <End Role="Shelf" Type="Self.Shelf" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shelf">
+              <PropertyRef Name="ShelfId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ShelfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Winery">
+          <End Role="Winery" Type="Self.Winery" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Winery">
+              <PropertyRef Name="WineryId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="WineryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FrogJumpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Account" EntityType="Self.Account" />
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Order" EntityType="Self.Order" />
+          <EntitySet Name="Order_Detail" EntityType="Self.Order_Detail" />
+          <EntitySet Name="Parameter" EntityType="Self.Parameter" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Shelf" EntityType="Self.Shelf" />
+          <EntitySet Name="Winery" EntityType="Self.Winery" />
+          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Detail_Order" Association="Self.FK_Order_Detail_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Order_Detail" EntitySet="Order_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Winery" Association="Self.FK_Order_Winery">
+            <End Role="Winery" EntitySet="Winery" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Detail_Product" Association="Self.FK_Order_Detail_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Order_Detail" EntitySet="Order_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Shelf" Association="Self.FK_Product_Shelf">
+            <End Role="Shelf" EntitySet="Shelf" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Winery" Association="Self.FK_Product_Winery">
+            <End Role="Winery" EntitySet="Winery" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <EntitySet Name="Inentory" EntityType="FrogJumpModel.Inentory" />
+          <AssociationSet Name="FK_InentoryId_Product1" Association="FrogJumpModel.FK_InentoryId_Product1">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Inentory" EntitySet="Inentory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InentoryId_Shelf1" Association="FrogJumpModel.FK_InentoryId_Shelf1">
+            <End Role="Shelf" EntitySet="Shelf" />
+            <End Role="Inentory" EntitySet="Inentory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_Winery" Association="FrogJumpModel.FK_Account_Winery">
+            <End Role="Winery" EntitySet="Winery" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Inentory">
+          <Key>
+            <PropertyRef Name="InventoryId" />
+          </Key>
+          <Property Name="InventoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="ShelfId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="FrogJumpModel.FK_InentoryId_Product1" FromRole="Inentory" ToRole="Product" />
+          <NavigationProperty Name="Shelf" Relationship="FrogJumpModel.FK_InentoryId_Shelf1" FromRole="Inentory" ToRole="Shelf" />
+        </EntityType>
+        <Association Name="FK_InentoryId_Product1">
+          <End Type="FrogJumpModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="FrogJumpModel.Inentory" Role="Inentory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Inentory">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InentoryId_Shelf1">
+          <End Type="FrogJumpModel.Shelf" Role="Shelf" Multiplicity="1" />
+          <End Type="FrogJumpModel.Inentory" Role="Inentory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shelf">
+              <PropertyRef Name="ShelfId" />
+            </Principal>
+            <Dependent Role="Inentory">
+              <PropertyRef Name="ShelfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_Winery">
+          <End Type="FrogJumpModel.Winery" Role="Winery" Multiplicity="0..1" />
+          <End Type="FrogJumpModel.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Winery">
+              <PropertyRef Name="WineryId" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="WineryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FrogJumpModelStoreContainer" CdmEntityContainer="FrogJumpEntities">
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="FrogJumpModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="WineryId" ColumnName="WineryId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="AccountUser" ColumnName="AccountUser" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IdentityCode" ColumnName="IdentityCode" />
+                <ScalarProperty Name="Crt_User" ColumnName="Crt_User" />
+                <ScalarProperty Name="Crt_Date" ColumnName="Crt_Date" />
+                <ScalarProperty Name="Mdf_User" ColumnName="Mdf_User" />
+                <ScalarProperty Name="Mdf_Date" ColumnName="Mdf_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="FrogJumpModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="FrogJumpModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="WineryId" ColumnName="WineryId" />
+                <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+                <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="RequiredDate" ColumnName="RequiredDate" />
+                <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Detail">
+            <EntityTypeMapping TypeName="FrogJumpModel.Order_Detail">
+              <MappingFragment StoreEntitySet="Order_Detail">
+                <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parameter">
+            <EntityTypeMapping TypeName="FrogJumpModel.Parameter">
+              <MappingFragment StoreEntitySet="Parameter">
+                <ScalarProperty Name="ParameterId" ColumnName="ParameterId" />
+                <ScalarProperty Name="ParmCode" ColumnName="ParmCode" />
+                <ScalarProperty Name="ParameterName" ColumnName="ParameterName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="FrogJumpModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="WineryId" ColumnName="WineryId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ShelfId" ColumnName="ShelfId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shelf">
+            <EntityTypeMapping TypeName="FrogJumpModel.Shelf">
+              <MappingFragment StoreEntitySet="Shelf">
+                <ScalarProperty Name="ShelfId" ColumnName="ShelfId" />
+                <ScalarProperty Name="ShelfName" ColumnName="ShelfName" />
+                <ScalarProperty Name="ShelfAddress" ColumnName="ShelfAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Winery">
+            <EntityTypeMapping TypeName="FrogJumpModel.Winery">
+              <MappingFragment StoreEntitySet="Winery">
+                <ScalarProperty Name="WineryId" ColumnName="WineryId" />
+                <ScalarProperty Name="WineryName" ColumnName="WineryName" />
+                <ScalarProperty Name="WineryPhone" ColumnName="WineryPhone" />
+                <ScalarProperty Name="WineryAddress" ColumnName="WineryAddress" />
+                <ScalarProperty Name="WineryEmail" ColumnName="WineryEmail" />
+                <ScalarProperty Name="Crt_User" ColumnName="Crt_User" />
+                <ScalarProperty Name="Crt_Date" ColumnName="Crt_Date" />
+                <ScalarProperty Name="Mdf_User" ColumnName="Mdf_User" />
+                <ScalarProperty Name="Mdf_Date" ColumnName="Mdf_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inentory">
+            <EntityTypeMapping TypeName="FrogJumpModel.Inentory">
+              <MappingFragment StoreEntitySet="Inentory">
+                <ScalarProperty Name="ShelfId" ColumnName="ShelfId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="InventoryId" ColumnName="InventoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

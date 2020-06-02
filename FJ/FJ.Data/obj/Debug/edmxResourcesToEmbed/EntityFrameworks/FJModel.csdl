@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FrogJumpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="AccountId" />
+    </Key>
+    <Property Name="AccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AccountUser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdentityCode" Type="Int32" Nullable="false" />
+    <Property Name="Crt_User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Crt_Date" Type="DateTime" Precision="3" />
+    <Property Name="Mdf_User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mdf_Date" Type="DateTime" Precision="3" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WineryId" Type="Int32" />
+    <NavigationProperty Name="Winery" Relationship="FrogJumpModel.FK_Account_Winery" FromRole="Account" ToRole="Winery" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="WineryId" Type="Int32" Nullable="false" />
+    <Property Name="CustomerPhone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CustomerAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="RequiredDate" Type="DateTime" Precision="3" />
+    <Property Name="ShippedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Order_Detail" Relationship="Self.FK_Order_Detail_Order" FromRole="Order" ToRole="Order_Detail" />
+    <NavigationProperty Name="Winery" Relationship="Self.FK_Order_Winery" FromRole="Order" ToRole="Winery" />
+  </EntityType>
+  <EntityType Name="Order_Detail">
+    <Key>
+      <PropertyRef Name="OrderDetailId" />
+    </Key>
+    <Property Name="OrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Detail_Order" FromRole="Order_Detail" ToRole="Order" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Order_Detail_Product" FromRole="Order_Detail" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Parameter">
+    <Key>
+      <PropertyRef Name="ParameterId" />
+    </Key>
+    <Property Name="ParameterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParmCode" Type="Int32" Nullable="false" />
+    <Property Name="ParameterName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Code" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="WineryId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="ShelfId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
+    <NavigationProperty Name="Order_Detail" Relationship="Self.FK_Order_Detail_Product" FromRole="Product" ToRole="Order_Detail" />
+    <NavigationProperty Name="Shelf" Relationship="Self.FK_Product_Shelf" FromRole="Product" ToRole="Shelf" />
+    <NavigationProperty Name="Winery" Relationship="Self.FK_Product_Winery" FromRole="Product" ToRole="Winery" />
+    <NavigationProperty Name="Inentory" Relationship="FrogJumpModel.FK_InentoryId_Product1" FromRole="Product" ToRole="Inentory" />
+  </EntityType>
+  <EntityType Name="Shelf">
+    <Key>
+      <PropertyRef Name="ShelfId" />
+    </Key>
+    <Property Name="ShelfId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShelfName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ShelfAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_Shelf" FromRole="Shelf" ToRole="Product" />
+    <NavigationProperty Name="Inentory" Relationship="FrogJumpModel.FK_InentoryId_Shelf1" FromRole="Shelf" ToRole="Inentory" />
+  </EntityType>
+  <EntityType Name="Winery">
+    <Key>
+      <PropertyRef Name="WineryId" />
+    </Key>
+    <Property Name="WineryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WineryName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="WineryPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="WineryAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="WineryEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Crt_User" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Crt_Date" Type="DateTime" Precision="3" />
+    <Property Name="Mdf_User" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Mdf_Date" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Winery" FromRole="Winery" ToRole="Order" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_Winery" FromRole="Winery" ToRole="Product" />
+    <NavigationProperty Name="Account" Relationship="FrogJumpModel.FK_Account_Winery" FromRole="Winery" ToRole="Account" />
+  </EntityType>
+  <Association Name="FK_Product_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Detail_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Order_Detail" Type="Self.Order_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="Order_Detail">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Winery">
+    <End Role="Winery" Type="Self.Winery" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Winery">
+        <PropertyRef Name="WineryId" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="WineryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Detail_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Order_Detail" Type="Self.Order_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Order_Detail">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Shelf">
+    <End Role="Shelf" Type="Self.Shelf" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shelf">
+        <PropertyRef Name="ShelfId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ShelfId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Winery">
+    <End Role="Winery" Type="Self.Winery" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Winery">
+        <PropertyRef Name="WineryId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="WineryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FrogJumpEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Account" EntityType="Self.Account" />
+    <EntitySet Name="Category" EntityType="Self.Category" />
+    <EntitySet Name="Order" EntityType="Self.Order" />
+    <EntitySet Name="Order_Detail" EntityType="Self.Order_Detail" />
+    <EntitySet Name="Parameter" EntityType="Self.Parameter" />
+    <EntitySet Name="Product" EntityType="Self.Product" />
+    <EntitySet Name="Shelf" EntityType="Self.Shelf" />
+    <EntitySet Name="Winery" EntityType="Self.Winery" />
+    <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Detail_Order" Association="Self.FK_Order_Detail_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Order_Detail" EntitySet="Order_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Winery" Association="Self.FK_Order_Winery">
+      <End Role="Winery" EntitySet="Winery" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Detail_Product" Association="Self.FK_Order_Detail_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Order_Detail" EntitySet="Order_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Shelf" Association="Self.FK_Product_Shelf">
+      <End Role="Shelf" EntitySet="Shelf" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Winery" Association="Self.FK_Product_Winery">
+      <End Role="Winery" EntitySet="Winery" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <EntitySet Name="Inentory" EntityType="FrogJumpModel.Inentory" />
+    <AssociationSet Name="FK_InentoryId_Product1" Association="FrogJumpModel.FK_InentoryId_Product1">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Inentory" EntitySet="Inentory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InentoryId_Shelf1" Association="FrogJumpModel.FK_InentoryId_Shelf1">
+      <End Role="Shelf" EntitySet="Shelf" />
+      <End Role="Inentory" EntitySet="Inentory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Account_Winery" Association="FrogJumpModel.FK_Account_Winery">
+      <End Role="Winery" EntitySet="Winery" />
+      <End Role="Account" EntitySet="Account" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Inentory">
+    <Key>
+      <PropertyRef Name="InventoryId" />
+    </Key>
+    <Property Name="InventoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="ShelfId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="FrogJumpModel.FK_InentoryId_Product1" FromRole="Inentory" ToRole="Product" />
+    <NavigationProperty Name="Shelf" Relationship="FrogJumpModel.FK_InentoryId_Shelf1" FromRole="Inentory" ToRole="Shelf" />
+  </EntityType>
+  <Association Name="FK_InentoryId_Product1">
+    <End Type="FrogJumpModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="FrogJumpModel.Inentory" Role="Inentory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Inentory">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InentoryId_Shelf1">
+    <End Type="FrogJumpModel.Shelf" Role="Shelf" Multiplicity="1" />
+    <End Type="FrogJumpModel.Inentory" Role="Inentory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shelf">
+        <PropertyRef Name="ShelfId" />
+      </Principal>
+      <Dependent Role="Inentory">
+        <PropertyRef Name="ShelfId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Account_Winery">
+    <End Type="FrogJumpModel.Winery" Role="Winery" Multiplicity="0..1" />
+    <End Type="FrogJumpModel.Account" Role="Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Winery">
+        <PropertyRef Name="WineryId" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="WineryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
