@@ -1,0 +1,45 @@
+﻿@model FJ.Data.ViewModels.AccountQueryViewModel
+@{
+    ViewBag.Title = "Index";
+    FJ.Data.SearchModels.AccountSearchModel searchModel = new FJ.Data.SearchModels.AccountSearchModel();
+}
+
+<div class="card shadow">
+    <div class="card-header bg-info">
+        <div class="text-white">
+            <h3>帳號管理</h3>
+        </div>
+    </div>
+    <div class="card-body container">
+        @using (Html.FJBeginForm("AccountForm"))
+        {
+            <div class="form-group row">
+                @Html.FJLabel("帳號")
+                @Html.FJTextBoxFor(model => searchModel.AccountUser, new { Name = "AccountUser" })
+                @Html.FJLabel("身分")
+                @Html.FJTextBoxFor(model => searchModel.IdentityCode, new { Name = "IdentityCode" })
+        </div>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            @Html.FJButton("AccountQuery", FJ.Enums.ButtonFormat.query, new { onclick="Query()"})
+        </div>
+        }
+    </div>
+</div>
+<br />
+<div class="card shadow">
+    <div id="AccountTableCard" class="card-body">
+
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function Query() {
+            $.post('@Url.Action("")', $('#AccountForm').serialize(),
+                function (result) {
+                    $('#AccountTableCard').html(result);
+            })
+        }
+    </script>
+}

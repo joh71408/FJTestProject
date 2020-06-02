@@ -1,0 +1,36 @@
+﻿@model FJ.Data.ViewModels.OrderTableViewModel
+@{
+        Layout = null;
+}
+<table id="OrderTable" class="table" style="width:100%">
+    <thead>
+        <tr>
+            <td>訂單編號</td>
+            <td>客戶名稱</td>
+            <td>酒莊</td>
+            <td>訂購日期</td>
+            <td>日期</td>
+            <td>出貨日期</td>
+            <td>@Html.FJButton("OrderInsert", FJ.Enums.ButtonFormat.insert, new { onclick = "window.location='" + Url.Action("CreateUpdate", "Order") + "'" })</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderTable)
+        {
+            <tr>
+                <td>@item.OrderId</td>
+                <td>@item.CustomerName</td>
+                <td>@item.Winery</td>
+                <td>@item.OrderDate</td>
+                <td>@item.RequiredDate</td>
+                <td>@item.ShippedDate</td>
+                <td>@Html.FJButton("OrderDetail", "預覽", FJ.Enums.ButtonFormat.button, new { @class="btn btn-Info"})</td>
+                <td>@Html.FJButton("OrderEdit", FJ.Enums.ButtonFormat.edit, null)</td>
+                <td>@Html.FJButton("OrderDelete", FJ.Enums.ButtonFormat.delete, null)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+     $('#OrderTable').DataTable(datatables);
+</script>

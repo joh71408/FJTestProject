@@ -1,0 +1,50 @@
+﻿@model FJ.Data.ViewModels.AccountCreateUpdateViewModel
+@{
+    ViewBag.Title = "Create";
+}
+<div class="card shadow">
+    <div class="card-header bg-info">
+        <h4></h4>
+    </div>
+    <div class="card-body">
+        <form id="CreateForm">
+            @Html.HiddenFor(m => m.AccountId)
+
+            <div class="form-group row">
+                @Html.FJLabel("帳號")
+                @Html.FJTextBoxFor(m => Model.AccountUser, null, true)
+            </div>
+            <div class="form-group row">
+                @Html.FJLabel("密碼")
+                @Html.FJTextBoxFor(m => Model.Password, null, true)
+            </div>
+            <div class="form-group row">
+                @Html.FJLabel("確認密碼")
+                @Html.FJTextBoxFor(m => Model.CheckPassword, null, true)
+            </div>
+            <div class="form-group row">
+                @Html.FJLabel("身分")
+                @Html.FJDropDownListFor(m => Model.IdentityCode, Model.IdentityCodeList, null, true)
+            </div>
+            <div class="form-group row">
+                @Html.FJLabel("對應酒莊")
+                @Html.FJDropDownListFor(m => Model.WineryId, Model.DropDownListModel.WineryList, "")
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4"></div>
+                @Html.FJButton("CreateUpdatesumbit", FJ.Enums.ButtonFormat.button, new { @class="btn-info" ,onclick="Create();"})
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function Create() {
+            $.post("@Url.Action("CreateUpdate","Account")", $('#CreateForm').serialize(),
+                function (result) {
+                    alert(result);
+                })
+        }
+    </script>
+}

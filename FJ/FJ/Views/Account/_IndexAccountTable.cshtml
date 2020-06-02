@@ -1,0 +1,31 @@
+﻿@model FJ.Data.ViewModels.AccountTableViewModel
+@{ 
+    Layout = "null";
+}
+    <table id="AccountTable" class="table">
+        <thead>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>@Html.FJButton("AccountCreate",FJ.Enums.ButtonFormat.insert,null)</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AccountTable)
+            {
+                <tr>
+                    <td>@item.AccountUser</td>
+                    <td>@item.UserName</td>
+                    <td>@item.IdentityCode</td>
+                    <td>@item.Winery</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+<script>
+    $('#AccountTable').dataTable(datatables);
+</script>

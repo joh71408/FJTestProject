@@ -1,0 +1,78 @@
+﻿@model FJ.Data.ViewModels.OrderQueryViewModel
+@{
+    ViewBag.Title = "訂單維護";
+    FJ.Data.SearchModels.OrderViewSearchModel searchModel = new FJ.Data.SearchModels.OrderViewSearchModel();
+}
+
+<div>
+    <div class="card shadow">
+        <div class="card-header bg-info">
+            <div class="text-white">
+                <h3>訂單查詢</h3>
+            </div>
+        </div>
+        <div class="card-body">
+            @using (Html.FJBeginForm("OrderForm"))
+            {
+                <div class="form-group row">
+                    @Html.FJLabel("訂單編號")
+                    @Html.FJTextBoxFor(model => searchModel.OrderId, new { Name = "OrderId" }, required: true)
+                    <div class="col-1"></div>
+                    @Html.FJLabel("客戶名稱")
+                    @Html.FJTextBoxFor(model => searchModel.CustomerName, new { Name = "CustomerName" }, required: true)
+                </div>
+                <div class="form-group row">
+                    @Html.FJLabel("酒莊")
+                    @Html.FJDropDownListFor(model => searchModel.WineryId, Model.DropDownListModel.WineryList, "全部")
+                </div>
+                <div class="form-group row">
+                    @Html.FJLabel("類型")
+                    @Html.FJDropDownListFor(model => searchModel.CategoryId, Model.DropDownListModel.CategoryList, "全部")
+                    <div class="col-1"></div>
+                    @Html.FJLabel("訂購產品")
+                    @Html.FJDropDownListFor(model => searchModel.ProductId, Model.DropDownListModel.ProductList, "全部")
+                </div>
+                <div class="form-group row">
+                    @Html.FJLabel("訂購時間")
+                    @Html.FJTextBoxDateTimeFor(model => searchModel.OrderDate, FJ.Enums.DateTimeFormat.yyyyMMdd, null)
+                    <div class="col-1"></div>
+                    @Html.FJLabel("間格時間")
+                    @Html.FJTextBoxDateTimeFor(model => searchModel.RequiredDate, FJ.Enums.DateTimeFormat.yyyyMMdd, null)
+                </div>
+                <div class="form-group row">
+                    @Html.FJLabel("出貨時間")
+                    @Html.FJTextBoxDateTimeFor(model => searchModel.ShippedDate, FJ.Enums.DateTimeFormat.yyyyMMdd, null)
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-11">
+                        @Html.FJButton("OrderQuery", FJ.Enums.ButtonFormat.query, new { onclick="Query();"})
+                        @Html.FJButton("OrderClear", FJ.Enums.ButtonFormat.clear, null)
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <br />
+    <div class="card shadow">
+        <div id="OrderTableCard" class="card-body">
+            
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            Query();
+        })
+
+        function Query() {
+            $.post('@Url.Action("getOrderTable","Order")', $('#OrderForm').serialize(),
+                function (result) {
+                    $('#OrderTableCard').html(result);
+                    
+                })
+        }
+    </script>
+}

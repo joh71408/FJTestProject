@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "LoginIndex";
+    Layout = "~/Views/Shared/_LayoutPageByLogin.cshtml";
+    FJ.Data.ViewModels.LoginIndexViewModel viewModel = new FJ.Data.ViewModels.LoginIndexViewModel();
+}
+
+<div class="m-2 text-center text-info">
+    <h4>登入</h4>
+</div>
+@using (Html.BeginForm("LoginIndex", "Login", FormMethod.Post, new { id = "LoginForm", @class = "user" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.TextBoxFor(m => viewModel.Account, new { @class = "form-control form-control-user",placeholder="請輸入帳號" })
+        @Html.ValidationMessageFor(m=>viewModel.Account,"",new { @class="text-danger"})
+    </div>
+    <div class="form-group">
+        @Html.FJPasswordTextBoxFor(m => viewModel.Password, new { Name = "Password", placeholder = "請輸入密碼" })
+        @Html.ValidationMessageFor(m => viewModel.Password, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.FJButton("Login", "登入", FJ.Enums.ButtonFormat.submit,new { @class="btn-user btn-block",onclick="goLogin()"})
+    </div>
+}
+
+@section Scripts{
+    <script>
+        function goLogin() {
+            $.post('@Url.Action("LoginIndex")', $('#loginForm').serialize(),
+                function (result) {
+                    alert(result);
+                })
+        }
+    </script>
+}
+
