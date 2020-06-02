@@ -1,0 +1,8 @@
+C:\Users\joshua\source\repos\FJ\i18N\bin\Debug\i18N.dll
+C:\Users\joshua\source\repos\FJ\i18N\bin\Debug\i18N.pdb
+C:\Users\joshua\source\repos\FJ\i18N\obj\Debug\FJ.i18N.csprojAssemblyReference.cache
+C:\Users\joshua\source\repos\FJ\i18N\obj\Debug\i18N.FJMessage.resources
+C:\Users\joshua\source\repos\FJ\i18N\obj\Debug\i18N.FJView.resources
+C:\Users\joshua\source\repos\FJ\i18N\obj\Debug\FJ.i18N.csproj.GenerateResource.cache
+C:\Users\joshua\source\repos\FJ\i18N\obj\Debug\i18N.dll
+C:\Users\joshua\source\repos\FJ\i18N\obj\Debug\i18N.pdb
