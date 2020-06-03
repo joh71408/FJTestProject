@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace FJ.Data.SearchModels
 {
-    class WinerySearchModel
+    public class WineryViewSearchModel
     {
+
     }
 }
